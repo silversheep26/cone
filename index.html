@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 이서윤체 폰트 적용을 위한 코드 */
+        @font-face {
+            font-family: "LeeSeoyun";
+            src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2202-2@1.0/LeeSeoyun.woff") format("woff");
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* body태그 자체에 css 요소 부여 */
+        body {
+            font-family: "LeeSeoyun";
+            margin: 0;
+            /* 영역 바깥쪽으로 여백 */
+            display: flex;
+            /* 유연하게 바꿔라 */
+            justify-content: center;
+            /* 정렬은 가운데로 */
+            background-image: url("./background.png");
+            /* 같은 폴더 안에 있는 background.png라는 파일을 가져와라 */
+
+        }
+
+        .container {
+            width: 390px;
+            /* 390px이 핸드폰 너비와 비슷함 */
+            background-color: #ff9d73;
+            height: 100%;
+            /* container를 둘러 싸고 있는 body태그의 높이 만큼을 차지해라  */
+        }
+
+        .photos {
+            margin-top: 30px;
+        }
+
+        /* 맨 꼭대기가 조금 떨어지게 만들기  */
+
+        .photo-frame {
+            background-color: white;
+            margin: 15px 20px;
+            height: 200px;
+
+            background-size: cover;
+            background-position: center;
+
+            position: relative;
+            /* photo-frame 밑에 있는 것들(discription)이 frame을 기준으로 
+            어디에 위치하게 할지 기준을 정하기 위해서 relative 속성을 사용 */
+            cursor: pointer;
+            /*마우스가 사진 위로 올라가면 포인터 아이콘으로 바뀌도록 */
+        }
+
+        /* 각각의 사진 사이에 간격 만들어 주기 */
+
+        .footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* 내용물들을 세로+가운데 정렬 */
+
+        .f-title {
+            color: white;
+            font-size: 25px;
+            font-weight: 900;
+        }
+
+        .f-date {
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        #image1 {
+            background-image: url('./1.jpg');
+        }
+
+        #image2 {
+            background-image: url('./2.jpg');
+        }
+
+        #image3 {
+            background-image: url('./3.jpg');
+        }
+
+        #image4 {
+            background-image: url('./uk.jpg');
+        }
+
+        .photo_description {
+            /* 사진 속 설명 한줄 한줄 */
+            color: white;
+            background-color: black;
+
+            width: fit-content;
+            padding: 0 20px;
+            margin-bottom: 10px;
+
+            border-radius: 5px;
+
+            position: absolute;
+            top: 5px;
+            left: 5px;
+
+            /* position: absolute;
+             relative로 설정한 그것을 기준으로 잡을 거다. 
+            bottom: 0;
+             프레임 기준으로 밑에서 0만큼 올라와라 
+            transform: translate(-50%);
+            left: 50%;
+            왼쪽에서 50%만큼 정확히 가운데 정렬 */
+
+
+            opacity: 0;
+            /* 초반에 페이지 열릴 때 기본으로 안보이게 하기 위한 설정이에요 */
+        }
+
+        .video {
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .showText {
+            opacity: 0;
+        }
+
+        .hideText {
+            opacity: 1;
+            transition: opacity 0.5s linear;
+        }
+    </style>
+
+    <script>
+        // 텍스트가 보여지는 기능
+        // 1. 몇 번째 사진에 마우스가 올라갔는지 확인(if문)
+        // 2. 해당 사진을 찾아 hideText class를 지워주고, showText는 삽입해줌
+        function showText(number) {
+            if (number === 1) {
+                document.querySelector("#desc1").classList.remove("hideText");
+                document.querySelector("#desc1").classList.add("showText");
+            } else if (number === 2) {
+                document.querySelector("#desc2").classList.remove("hideText");
+                document.querySelector("#desc2").classList.add("showText");
+            } else {
+                document.querySelector("#desc3").classList.remove("hideText");
+                document.querySelector("#desc3").classList.add("showText");
+            }
+        }
+
+        // 텍스트가 감춰지는 기능
+        // 1. 몇 번째 사진에서 마우스가 벗어났는지 확인(if문)
+        // 2. 해당 사진을 찾아 shotText class를 지워주고, hideText는 삽입해줌
+        function hideText(number) {
+            if (number === 1) {
+                document.querySelector("#desc1").classList.remove("showText");
+                document.querySelector("#desc1").classList.add("hideText");
+            } else if (number === 2) {
+                document.querySelector("#desc2").classList.remove("showText");
+                document.querySelector("#desc2").classList.add("hideText");
+            } else {
+                document.querySelector("#desc3").classList.remove("showText");
+                document.querySelector("#desc3").classList.add("hideText");
+            }
+        }
+
+        // 클릭 기능
+        // 1. 선택된 사진의 숫자를 가진 텍스트를 alert 형태로 출력해줌
+        function alertText(number) {
+            alert(`${number}번째 사진이에요 :)`);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="photos">
+            <!-- 네개의 이미지 메인 부분 -->
+            <div id="image1" class="photo-frame" onmouseover="hideText(1)" onmouseout="showText(1)"
+                onclick="alertText(1)">
+                <span id="desc1" class="photo_description">
+                    프랑스 에펠탑 앞
+                </span>
+            </div>
+            <div id="image2" class="photo-frame" onmouseover="hideText(2)" onmouseout="showText(2)"
+                onclick="alertText(2)">
+                <span id="desc2" class="photo_description">
+                    스위스 융프라우
+                </span>
+            </div>
+            <div id="image3" class="photo-frame" onmouseover="hideText(3)" onmouseout="showText(3)"
+                onclick="alertText(3)">
+                <span id="desc3" class="photo_description">
+                    이탈리아 다리 앞
+                </span>
+            </div>
+            <div class="photo-frame">
+                <iframe class="video" src="https://www.youtube.com/embed/Kiw7I4REt7g"></iframe>
+            </div>
+        </div>
+        <div class="footer">
+            <!-- 메인 밑에 들어가는 영역 -->
+            <p class="f-title">Happy Travel</p>
+            <p class="f-date">22.12.30. ~ 23.01.08</p>
+        </div>
+
+    </div>
+</body>
+
+</html>
